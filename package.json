@@ -1,0 +1,28 @@
+{
+  "name": "pixel",
+  "version": "0.0.1",
+  "description": "digital image processing",
+  "main": "pixel.js",
+  "scripts": {
+    "test": "gulp test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zcoding/pixel.git"
+  },
+  "keywords": [
+    "image",
+    "processing",
+    "pixel"
+  ],
+  "author": "zcoding",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/zcoding/pixel/issues"
+  },
+  "homepage": "https://github.com/zcoding/pixel",
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-jshint": "^1.11.0"
+  }
+}

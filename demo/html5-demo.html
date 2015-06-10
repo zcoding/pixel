@@ -1,0 +1,80 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+  <meta charset="utf-8">
+  <title>基于Canvas数字图像处理</title>
+  <script src="image.js"></script>
+  </head>
+  <body>
+  <canvas id="myCanvas" width="200" height="200" style="border:1px solid #c3c3c3;">
+  Your browser does not support the canvas element.
+  </canvas>
+  <button id="complement">求补</button>
+  <button id="light">亮度加</button>
+  <button id="dark">亮度减</button>
+  <button id="binary">二值化</button>
+  <button id="gray">灰度图</button>
+  <button onclick="return chongzhi(img)">重置</button>
+  <button onclick="return smoothFilter(img, smooth1, 8)">平滑1</button>
+  <button onclick="return smoothFilter(img, smooth2, 16)">平滑2</button>
+  <button onclick="return CrossWindow(img)">十字窗口</button>
+  <button onclick="return SquareWindow(img)">方形窗口</button>
+  <button onclick="return highPassFilter(img, laplacian1)">拉普拉斯锐化</button>
+  <button onclick="return sharpenFilter(img, Sobelx, Sobely)">Sobel算子锐化</button>
+  <button onclick="return sharpenFilter(img, Prewittx, Prewitty)">Prewitt算子锐化</button>
+  <button id="opacity">透明</button>
+  <script type="text/javascript">
+
+  var imageData, canvas;
+  var cvs = document.getElementById("myCanvas");
+  var ctx = cvs.getContext("2d");
+  var img = new Image();
+  
+  img.onload = function() {
+    cvs.width = img.width;
+    cvs.height = img.height;
+    ctx.drawImage(img, 0, 0);
+    canvas = new Canvas(ctx);
+    imageData = canvas.data(0, 0, img.width, img.height);
+  };
+  img.src = "lena.jpg";
+
+  document.querySelector('#complement').addEventListener('click', function() {
+    Pixel.complement(imageData.data).then(function(newData) {
+      canvas.draw(imageData);
+    });
+  }, false);
+
+  document.querySelector('#light').addEventListener('click', function() {
+    Pixel.linear(imageData.data, 1, 10).then(function(newData) {
+      canvas.draw(imageData);
+    });
+  }, false);
+
+  document.querySelector('#dark').addEventListener('click', function() {
+    Pixel.linear(imageData.data, 1, -10).then(function(newData) {
+      canvas.draw(imageData);
+    });
+  }, Pixel);
+
+  document.querySelector('#opacity').addEventListener('click', function() {
+    Pixel.opacity(imageData.data, 0.5).then(function(newData) {
+      canvas.draw(imageData);
+    });
+  }, false);
+
+  document.querySelector('#binary').addEventListener('click', function() {
+    Pixel.binarization(imageData.data, 128).then(function(newData) {
+      canvas.draw(imageData);
+    });
+  }, false);
+
+  document.querySelector('#gray').addEventListener('click', function() {
+    Pixel.gray(imageData.data).then(function(newData) {
+      canvas.draw(imageData);
+    });
+  }, false);
+
+  </script>
+  </body>
+</html>
