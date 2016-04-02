@@ -4,7 +4,8 @@
   "description": "digital image processing",
   "main": "pixel.js",
   "scripts": {
-    "dev": "gulp dev"
+    "dev": "gulp dev",
+    "test": "karma start karma-conf.js"
   },
   "repository": {
     "type": "git",
@@ -25,6 +26,9 @@
     "gulp": "^3.9.0",
     "gulp-concat": "^2.5.2",
     "gulp-connect": "^3.2.2",
-    "karma": "^0.13.22"
+    "jasmine-core": "^2.4.1",
+    "karma": "^0.13.22",
+    "karma-chrome-launcher": "^0.2.3",
+    "karma-jasmine": "^0.3.8"
   }
 }
