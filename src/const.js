@@ -1,0 +1,10 @@
+export const TemplateSmooth1 = new Array(1, 1, 1, 1, 0, 1, 1, 1, 1);         // 平滑模板 参数 1/8
+export const TemplateSmooth2 = new Array(1, 2, 1, 2, 4, 2, 1, 2, 1);         // 平滑模板 参数 1/16
+export const TemplateSmooth3 = new Array(1, 1, 1, 1, 2, 1, 1, 1, 1);         // 平滑模板 参数 1/10
+export const Laplacian0 = new Array(0, -1, 0, -1, 4, -1, 0, -1, 0);  // 拉普拉斯算子
+export const Laplacian1 = new Array(0, -1, 0, -1, 5, -1, 0, -1, 0);  // 拉普拉斯算子
+export const Laplacian2 = new Array(1, 4, 1, 4, -20, 4, 1, 4, 1);    // 拉普拉斯算子
+export const SobelX = new Array(1, 0, -1, 2, 0, -2, 1, 0, -1);       // Sobel算子x
+export const SobelY = new Array(-1, -2, -1, 0, 0, 0, 1, 2, 1);       // Sobel算子y
+export const PrewittX = new Array(1, 0, -1, 1, 0, -1, 1, 0, -1);     // Prewitt算子x
+export const PrewittY = new Array(-1, -1, -1, 0, 0, 0, 1, 1, 1);     // Prewitt算子y

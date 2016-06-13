@@ -1,19 +1,15 @@
-/**
- * 卷积运算
- * @param matrix 矩阵
- * @param template 模板
- * @return result 返回矩阵和模板卷积运算的结果
- */
-function Convolution(matrix, template) {
-  var result = 0;
-  for (var i = 0; i < matrix.length; ++i) {
-    result += matrix[i] * template[i];
-  }
-  return result;
-}
-
 describe("测试工具函数", function() {
+
   it("卷积函数运算", function() {
-    expect(Convolution([1, 2], [2, 1])).toBe(4);
+    expect(Convolution([1], [2])).toBe(2);
   });
+
+  it("用于排序的辅助函数（升序）", function() {
+    expect(ascendingOrder(3, 2)).toBe(1);
+  });
+
+  it("用于排序的辅助函数（降序）", function() {
+    expect(descendingOrder(2, 3)).toBe(1);
+  });
+
 });

@@ -4,7 +4,7 @@
   "description": "digital image processing",
   "main": "pixel.js",
   "scripts": {
-    "dev": "gulp dev",
+    "dev": "rollup --config build/rollup.config.js",
     "test": "karma start karma-conf.js"
   },
   "repository": {
@@ -23,12 +23,13 @@
   },
   "homepage": "https://github.com/zcoding/pixel",
   "devDependencies": {
-    "gulp": "^3.9.0",
-    "gulp-concat": "^2.5.2",
-    "gulp-connect": "^3.2.2",
+    "babel-preset-es2015-rollup": "^1.1.1",
     "jasmine-core": "^2.4.1",
     "karma": "^0.13.22",
     "karma-chrome-launcher": "^0.2.3",
-    "karma-jasmine": "^0.3.8"
+    "karma-coverage": "^0.5.5",
+    "karma-jasmine": "^0.3.8",
+    "rollup": "^0.26.3",
+    "rollup-plugin-babel": "^2.4.0"
   }
 }

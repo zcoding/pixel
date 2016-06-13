@@ -1,5 +1,5 @@
 var imageData, canvas;
-var cvs = document.querySelector('#my-canvas');
+var cvs = selectDOM('#my-canvas')[0];
 var ctx = cvs.getContext("2d");
 var img = new Image();
 
@@ -12,48 +12,58 @@ img.onload = function() {
 };
 img.src = "image/lena.jpg";
 
+function selectDOM(selector, context) {
+  context = context || document;
+  return context.querySelectorAll(selector);
+}
+
 // 求补
-document.querySelector('#complement').addEventListener('click', function() {
+selectDOM('#complement')[0].addEventListener('click', function() {
   Pixel.complement(imageData.data).then(function(newData) {
     canvas.draw(imageData);
   });
 }, false);
 
 // 亮度加
-document.querySelector('#light').addEventListener('click', function() {
+selectDOM('#light')[0].addEventListener('click', function() {
   Pixel.linear(imageData.data, 1, 10).then(function(newData) {
     canvas.draw(imageData);
   });
 }, false);
 
 // 亮度减
-document.querySelector('#dark').addEventListener('click', function() {
+selectDOM('#dark')[0].addEventListener('click', function() {
   Pixel.linear(imageData.data, 1, -10).then(function(newData) {
     canvas.draw(imageData);
   });
 }, Pixel);
 
 // 透明度
-document.querySelector('#opacity').addEventListener('click', function() {
+selectDOM('#opacity')[0].addEventListener('click', function() {
   Pixel.opacity(imageData.data, 0.5).then(function(newData) {
     canvas.draw(imageData);
   });
 }, false);
 
 // 二值化
-document.querySelector('#binary').addEventListener('click', function() {
+selectDOM('#binary')[0].addEventListener('click', function() {
   Pixel.binarization(imageData.data, 128).then(function(newData) {
     canvas.draw(imageData);
   });
 }, false);
 
 // 灰度图
-document.querySelector('#gray').addEventListener('click', function() {
+selectDOM('#gray')[0].addEventListener('click', function() {
   Pixel.gray(imageData.data).then(function(newData) {
     canvas.draw(imageData);
   });
 }, false);
 
 // 重置
-document.querySelector('#reset').addEventListener('click', function() {
+selectDOM('#reset')[0].addEventListener('click', function() {
+}, false);
+
+//平滑1
+selectDOM('#pinghua1')[0].addEventListener('click', function() {
+  Pixel.smoothFilter(imageData.data, Pixel.smooth1, 8);
 }, false);
