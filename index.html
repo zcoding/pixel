@@ -1,0 +1,33 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>基于Canvas数字图像处理</title>
+    <link rel="stylesheet" href="demo.css">
+  </head>
+  <body>
+    <div class="container-main">
+      <div class="container-imagebox">
+        <canvas id="my-canvas"></canvas>
+      </div>
+      <div class="container-toolbox">
+        <button class="btn" type="button" id="reset">重置</button>
+        <button class="btn" type="button" id="complement">求补</button>
+        <button class="btn" type="button" id="light">亮度加</button>
+        <button class="btn" type="button" id="dark">亮度减</button>
+        <button class="btn" type="button" id="binary">二值化</button>
+        <button class="btn" type="button" id="gray">灰度图</button>
+        <button class="btn" type="button" id="pinghua1">平滑1</button>
+        <button class="btn" type="button" id="pinghua2">平滑2</button>
+        <button class="btn" type="button" id="crosswindow">十字窗口</button>
+        <button class="btn" type="button" id="square-window">方形窗口</button>
+        <button class="btn" type="button" id="laplacian1">拉普拉斯锐化</button>
+        <button class="btn" type="button" id="sobel">Sobel算子锐化</button>
+        <button class="btn" type="button" id="prewitty">Prewitt算子锐化</button>
+        <button class="btn" type="button" id="opacity" disabled>透明</button>
+      </div>
+    </div>
+    <script src="dist/iife/pixel.js"></script>
+    <script src="demo.js"></script>
+  </body>
+</html>

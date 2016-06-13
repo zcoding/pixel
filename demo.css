@@ -1,0 +1,59 @@
+html {
+  box-sizing: border-box;
+  font-size: 16px;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+body {
+  margin: 0;
+  font-size: 100%;
+}
+
+.container-main {
+  display: flex;
+}
+
+.container-imagebox {
+  width: 600px;
+  padding: 15px;
+}
+
+.container-toolbox {
+  flex: 1;
+  padding: 15px;
+}
+
+.container-imagebox canvas {
+  display: block;
+  margin: 0 auto;
+}
+
+.btn {
+  display: inline-block;
+  margin: 0 0 5px 0;
+  padding: 8px 32px;
+  border: 1px solid rgba(0, 0, 0, 0);
+  border-radius: 2px;
+  outline: 0;
+  color: #fff;
+  background: #00bcd4;
+  vertical-align: middle;
+}
+
+.btn:hover {
+  background: #00c2e0;
+}
+
+.btn:active {
+  background: #00bcd4;
+}
+
+.btn[disabled] {
+  pointer-events: none;
+  cursor: not-allowed;
+  background: #00bcd4;
+  opacity: .6;
+}

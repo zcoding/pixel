@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "rollup -c build/rollup.config.js -w",
     "test": "karma start karma-conf.js",
-    "start": "node scripts/server.js"
+    "start": "node scripts/server.js",
+    "pages": "python -m SimpleHTTPServer 9879"
   },
   "repository": {
     "type": "git",
