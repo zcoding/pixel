@@ -4,8 +4,9 @@
   "description": "digital image processing",
   "main": "pixel.js",
   "scripts": {
-    "dev": "rollup --config build/rollup.config.js",
-    "test": "karma start karma-conf.js"
+    "dev": "rollup -c build/rollup.config.js -w",
+    "test": "karma start karma-conf.js",
+    "start": "node scripts/server.js"
   },
   "repository": {
     "type": "git",
@@ -29,7 +30,12 @@
     "karma-chrome-launcher": "^0.2.3",
     "karma-coverage": "^0.5.5",
     "karma-jasmine": "^0.3.8",
-    "rollup": "^0.26.3",
-    "rollup-plugin-babel": "^2.4.0"
+    "koa": "^1.2.0",
+    "koa-route": "^2.4.2",
+    "koa-static": "^2.0.0",
+    "open": "0.0.5",
+    "rollup": "^0.31.1",
+    "rollup-plugin-babel": "^2.4.0",
+    "rollup-watch": "^2.4.0"
   }
 }

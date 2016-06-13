@@ -4,7 +4,7 @@
  * @param template 模板
  * @return result 返回矩阵和模板卷积运算的结果
  */
-function Convolution(matrix, template) {
+export function Convolution(matrix, template) {
     var result = 0;
     for (var i = 0; i < matrix.length; ++i) {
       result += matrix[i] * template[i];
@@ -16,12 +16,12 @@ function Convolution(matrix, template) {
 /**
  * 升序函数，用于数组排序
  */
-function ascendingOrder(a, b) {
+export function AscendingOrder(a, b) {
   return a - b;
 }
 /**
  * 降序函数，用于数组排序
  */
-function descendingOrder(a, b) {
+export function DescendingOrder(a, b) {
   return b - a;
 }
