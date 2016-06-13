@@ -34,7 +34,7 @@ selectDOM('#dark')[0].addEventListener('click', function() {
 
 // 透明度
 selectDOM('#opacity')[0].addEventListener('click', function() {
-  canvas.opacity(0.5).then(function() {
+  canvas.opacity(0.8).then(function() {
     canvas.repaint();
   });
 }, false);
@@ -80,6 +80,24 @@ selectDOM('#crosswindow')[0].addEventListener('click', function() {
 
 selectDOM('#square-window')[0].addEventListener('click', function() {
   canvas.squareWindow().then(function() {
+    canvas.repaint();
+  });
+}, false);
+
+selectDOM('#laplacian1')[0].addEventListener('click', function() {
+  canvas.highPassFilter(Pixel.Laplacian1).then(function() {
+    canvas.repaint();
+  });
+}, false);
+
+selectDOM('#sobel')[0].addEventListener('click', function() {
+  canvas.sharpenFilter(Pixel.SobelX, Pixel.SobelY).then(function() {
+    canvas.repaint();
+  });
+}, false);
+
+selectDOM('#prewitty')[0].addEventListener('click', function() {
+  canvas.sharpenFilter(Pixel.PrewittX, Pixel.PrewittY).then(function() {
     canvas.repaint();
   });
 }, false);

@@ -9,7 +9,9 @@ import {
 import {
   SmoothFilter,
   CrossWindow,
-  SquareWindow
+  SquareWindow,
+  HighPassFilter,
+  SharpenFilter
 } from './filter';
 
 export default class Canvas {
@@ -77,5 +79,13 @@ export default class Canvas {
 
   squareWindow() {
     return SquareWindow(this.imageData.data, this.width, this.height);
+  }
+
+  highPassFilter(template) {
+    return HighPassFilter(this.imageData.data, this.width, this.height, template);
+  }
+
+  sharpenFilter(templateX, templateY) {
+    return SharpenFilter(this.imageData.data, this.width, this.height, templateX, templateY);
   }
 }
