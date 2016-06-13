@@ -1,6 +1,8 @@
 # Pixel
 Digital Image Processing in Javascript and CSS.
 
+[Demo](http://zcoding.github.io/pixel/)
+
 # Installation
 ## ~~NPM~~
 ~~`npm install pixel-js`~~
