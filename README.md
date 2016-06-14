@@ -5,8 +5,26 @@ Digital Image Processing in Javascript and CSS.
 
 ## Installation
 
-### ~~NPM~~
-~~`npm install pixel-js`~~
+### NPM
+
+```bash
+npm install pixel-js --save
+```
+
+### Standalone
+
+Use the standalone version in the `dist/iife/pixel.js` folder.
+
+Use `<script>` tag to load the file:
+
+```html
+<script src="path/to/pixel.js"></script>
+```
+
+### ES6 and AMD support
+
++ `dist/es6/pixel.js`
++ `dist/amd/pixel.js`
 
 ## Demo
 
