@@ -118,7 +118,7 @@ var Pixel = (function () {
    * r' = r
    * g' = g
    * b' = b
-   * a' = a * 255
+   * a' = opacity * 255
    * @param {TypedArray} imageData
    * @param {Number} opacity: 0 ~ 1
    * @return Promise
@@ -192,7 +192,7 @@ var Pixel = (function () {
   }
 
   /**
-   * 转换为灰度（异步）
+   * 转换为灰度
    * r' = g' = b' = 0.299 * r + 0.587 * g + 0.114 * b
    * a' = a
    * @param {TypedArray} imageData
@@ -578,6 +578,11 @@ var Pixel = (function () {
     }
 
     babelHelpers.createClass(Canvas, [{
+      key: 'save',
+      value: function save() {
+        return this.cvs.toDataURL();
+      }
+    }, {
       key: 'clear',
       value: function clear() {
         this.ctx.clearRect(0, 0, this.width, this.height);
@@ -616,6 +621,7 @@ var Pixel = (function () {
     }, {
       key: 'binarization',
       value: function binarization(threshold) {
+        threshold = threshold || 128;
         return Binarization(this.imageData.data, threshold);
       }
     }, {
@@ -663,6 +669,11 @@ var Pixel = (function () {
   var PrewittX = new Array(1, 0, -1, 1, 0, -1, 1, 0, -1); // Prewitt算子x
   var PrewittY = new Array(-1, -1, -1, 0, 0, 0, 1, 1, 1); // Prewitt算子y
 
+  /**
+   * loadImage
+   * @param {String} src
+   * @return {Promise}
+   */
   function loadImage(src) {
     return new Promise(function (resolve, reject) {
       var image = new Image();

@@ -31,6 +31,10 @@ export default class Canvas {
     this.originImageData = this.ctx.getImageData(0, 0, width, height);
   }
 
+  save() {
+    return this.cvs.toDataURL();
+  }
+
   clear() {
     this.ctx.clearRect(0, 0, this.width, this.height);
     return this;

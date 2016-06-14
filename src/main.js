@@ -12,6 +12,11 @@ import {
   PrewittY
 } from './const';
 
+/**
+ * loadImage
+ * @param {String} src
+ * @return {Promise}
+ */
 function loadImage(src) {
   return new Promise((resolve, reject) => {
     var image = new Image();
@@ -19,6 +24,25 @@ function loadImage(src) {
       resolve(image);
     }, false);
     image.addEventListener("error", function() {
+      reject(new Error("Cannot load image"));
+    }, false);
+    image.src = src;
+  });
+}
+
+/**
+ * saveImage
+ * @param {Pixel.Canvas} canvas
+ * @return {Promise}
+ */
+function saveImage(canvas) {
+  return new Promise((resolve, reject) => {
+    var src = canvas.save();
+    var image = new Image();
+    image.addEventListener('load', function() {
+      resolve(image);
+    }, false);
+    image.addEventListener('error', function() {
       reject(new Error("Cannot load image"));
     }, false);
     image.src = src;
