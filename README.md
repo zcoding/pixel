@@ -1,5 +1,5 @@
 # Pixel
-[Digital Image Processing in Javascript and CSS.]((http://zcoding.github.io/pixel/))
+[Digital Image Processing in Javascript and CSS.](http://zcoding.github.io/pixel/)
 
 [![Versoin](https://img.shields.io/npm/v/pixel-js.svg?style=flat-square "Version")](https://www.npmjs.com/package/pixel-js)
 [![License](https://img.shields.io/npm/l/pixel-js.svg?style=flat-square "License")](./LICENSE)

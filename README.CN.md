@@ -1,5 +1,5 @@
 # Pixel
-[基于Javascript和CSS的数字图像处理]((http://zcoding.github.io/pixel/))
+[基于Javascript和CSS的数字图像处理](http://zcoding.github.io/pixel/)
 
 [![版本](https://img.shields.io/npm/v/pixel-js.svg?style=flat-square "版本")](https://www.npmjs.com/package/pixel-js)
 [![协议](https://img.shields.io/npm/l/pixel-js.svg?style=flat-square "协议")](./LICENSE)
