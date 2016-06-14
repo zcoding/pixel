@@ -184,6 +184,7 @@ var Pixel = (function () {
     return [dataR, dataG, dataB];
   }
 
+  // 十字窗口取相邻像素的规则不是3x3，需要特殊处理
   function getCrossWindowMatrix(originData, i, j, w, h) {
     var top2 = (i - 2) * w + j,
         top1 = (i - 1) * w + j,
@@ -202,32 +203,53 @@ var Pixel = (function () {
   }
 
   /**
-   * 平滑滤波器
-   * @param {Array} imageData
-   * @param template 模板
-   * @param times 模板参数
+   * Smooth Filter
+   * @param {TypedArray} imageData
+   * @param {Number} srcw
+   * @param {Number} srch
    */
   function SmoothFilter(imageData, srcw, srch, template, times) {
+    var originData = imageData.slice(0);
+    var rowPixelLength = srcw * 4;
+    var N = 100;
     return new Promise(function (resolve, reject) {
-      var originData = imageData.slice(0);
-      var rowPixelLength = srcw * 4;
-      setTimeout(function () {
-        for (var i = 0; i < srch; ++i) {
+      // async way
+      function doProcess(irow, rows) {
+        for (var i = 0; i < rows; ++i) {
           for (var j = 0; j < rowPixelLength; j += 4) {
-            var matrix3x3 = get3x3Matrix(originData, i, j, rowPixelLength, srch);
-            imageData[i * rowPixelLength + j] = Convolution(matrix3x3[0], template) / times;
-            imageData[i * rowPixelLength + j + 1] = Convolution(matrix3x3[1], template) / times;
-            imageData[i * rowPixelLength + j + 2] = Convolution(matrix3x3[2], template) / times;
+            var matrix3x3 = get3x3Matrix(originData, irow + i, j, rowPixelLength, srch);
+            imageData[(irow + i) * rowPixelLength + j] = Convolution(matrix3x3[0], template) / times;
+            imageData[(irow + i) * rowPixelLength + j + 1] = Convolution(matrix3x3[1], template) / times;
+            imageData[(irow + i) * rowPixelLength + j + 2] = Convolution(matrix3x3[2], template) / times;
           }
         }
-        resolve(imageData);
-      }, 0);
+        setTimeout(function () {
+          irow += rows;
+          if (irow + N < srch) {
+            doProcess(irow + N, N);
+          } else if (irow < srch) {
+            doProcess(irow, srch - irow);
+          } else {
+            resolve(imageData);
+          }
+        }, 0);
+      }
+      doProcess(0, N);
+      // sync way
+      // for(let i = 0; i < srch; ++i) {
+      //   for (let j = 0; j < rowPixelLength; j += 4) {
+      //     let matrix3x3 = get3x3Matrix(originData, i, j, rowPixelLength, srch);
+      //     imageData[i * rowPixelLength + j] = Convolution(matrix3x3[0], template) / times;
+      //     imageData[i * rowPixelLength + j + 1] = Convolution(matrix3x3[1], template) / times;
+      //     imageData[i * rowPixelLength + j + 2] = Convolution(matrix3x3[2], template) / times;
+      //   }
+      // }
+      // resolve(imageData);
     });
   }
 
   /**
-   * 中值滤波器 十字窗口
-   * 十字窗口比较特殊，不能用3x3矩阵
+   * Median Filter : Cross Window
    * @param {TypedArray} imageData
    * @param {Number} srcw
    * @param {Number} srch
@@ -235,29 +257,55 @@ var Pixel = (function () {
   function CrossWindow(imageData, srcw, srch) {
     var originData = imageData.slice(0);
     var rowPixelLength = srcw * 4;
+    var N = 100;
     return new Promise(function (resolve, reject) {
-      setTimeout(function () {
-        for (var i = 0; i < srch; ++i) {
+      // async way
+      function doProcess(irow, rows) {
+        for (var i = 0; i < rows; ++i) {
           for (var j = 0; j < rowPixelLength; j += 4) {
-            var matrix3x3 = getCrossWindowMatrix(originData, i, j, rowPixelLength, srch);
+            var matrix3x3 = getCrossWindowMatrix(originData, irow + i, j, rowPixelLength, srch);
             var dataR = matrix3x3[0],
                 dataG = matrix3x3[1],
                 dataB = matrix3x3[2];
             dataR.sort(AscendingOrder);
             dataG.sort(AscendingOrder);
             dataB.sort(AscendingOrder);
-            imageData[i * rowPixelLength + j] = dataR[4];
-            imageData[i * rowPixelLength + j + 1] = dataG[4];
-            imageData[i * rowPixelLength + j + 2] = dataB[4];
+            imageData[(irow + i) * rowPixelLength + j] = dataR[4];
+            imageData[(irow + i) * rowPixelLength + j + 1] = dataG[4];
+            imageData[(irow + i) * rowPixelLength + j + 2] = dataB[4];
           }
         }
-        resolve(imageData);
-      }, 0);
+        setTimeout(function () {
+          irow += rows;
+          if (irow + N < srch) {
+            doProcess(irow + N, N);
+          } else if (irow < srch) {
+            doProcess(irow, srch - irow);
+          } else {
+            resolve(imageData);
+          }
+        }, 0);
+      }
+      doProcess(0, N);
+      // sync way
+      // for(let i = 0; i < srch; ++i) {
+      //   for (let j = 0; j < rowPixelLength; j += 4) {
+      // let matrix3x3 = getCrossWindowMatrix(originData, i, j, rowPixelLength, srch);
+      // let dataR = matrix3x3[0], dataG = matrix3x3[1], dataB = matrix3x3[2];
+      // dataR.sort(AscendingOrder);
+      // dataG.sort(AscendingOrder);
+      // dataB.sort(AscendingOrder);
+      // imageData[i * rowPixelLength + j] = dataR[4];
+      // imageData[i * rowPixelLength + j + 1] = dataG[4];
+      // imageData[i * rowPixelLength + j + 2] = dataB[4];
+      //   }
+      // }
+      // resolve(imageData);
     });
   }
 
   /**
-   * 中值滤波器-方形窗口
+   * Median Filter : Square Window
    * @param {Array} imageData
    * @param {Number} srcw
    * @param {Number} srch
@@ -265,29 +313,55 @@ var Pixel = (function () {
   function SquareWindow(imageData, srcw, srch) {
     var originData = imageData.slice(0);
     var rowPixelLength = srcw * 4;
+    var N = 100;
     return new Promise(function (resolve, reject) {
-      setTimeout(function () {
-        for (var i = 0; i < srch; ++i) {
+      // async way
+      function doProcess(irow, rows) {
+        for (var i = 0; i < rows; ++i) {
           for (var j = 0; j < rowPixelLength; j += 4) {
-            var matrix3x3 = get3x3Matrix(originData, i, j, rowPixelLength, srch);
+            var matrix3x3 = get3x3Matrix(originData, irow + i, j, rowPixelLength, srch);
             var dataR = matrix3x3[0],
                 dataG = matrix3x3[1],
                 dataB = matrix3x3[2];
             dataR.sort(AscendingOrder);
             dataG.sort(AscendingOrder);
             dataB.sort(AscendingOrder);
-            imageData[i * rowPixelLength + j] = dataR[4];
-            imageData[i * rowPixelLength + j + 1] = dataG[4];
-            imageData[i * rowPixelLength + j + 2] = dataB[4];
+            imageData[(irow + i) * rowPixelLength + j] = dataR[4];
+            imageData[(irow + i) * rowPixelLength + j + 1] = dataG[4];
+            imageData[(irow + i) * rowPixelLength + j + 2] = dataB[4];
           }
         }
-        resolve(imageData);
-      }, 0);
+        setTimeout(function () {
+          irow += rows;
+          if (irow + N < srch) {
+            doProcess(irow + N, N);
+          } else if (irow < srch) {
+            doProcess(irow, srch - irow);
+          } else {
+            resolve(imageData);
+          }
+        }, 0);
+      }
+      doProcess(0, N);
+      // sync way
+      // for(let i = 0; i < srch; ++i) {
+      //   for (let j = 0; j < rowPixelLength; j += 4) {
+      //     let matrix3x3 = get3x3Matrix(originData, i, j, rowPixelLength, srch);
+      //     let dataR = matrix3x3[0], dataG = matrix3x3[1], dataB = matrix3x3[2];
+      //     dataR.sort(AscendingOrder);
+      //     dataG.sort(AscendingOrder);
+      //     dataB.sort(AscendingOrder);
+      //     imageData[i * rowPixelLength + j] = dataR[4];
+      //     imageData[i * rowPixelLength + j + 1] = dataG[4];
+      //     imageData[i * rowPixelLength + j + 2] = dataB[4];
+      //   }
+      // }
+      // resolve(imageData);
     });
   }
 
   /**
-   * High-Pass Filter
+   * High Pass Filter
    * @param {Array} imageData
    * @param {Number} srcw
    * @param {Number} srch
@@ -296,61 +370,99 @@ var Pixel = (function () {
   function HighPassFilter(imageData, srcw, srch, template) {
     var originData = imageData.slice(0);
     var rowPixelLength = srcw * 4;
+    var N = 100;
     return new Promise(function (resolve, reject) {
-      // function doProcess(i) {
+      // async way
+      function doProcess(irow, rows) {
+        for (var i = 0; i < rows; ++i) {
+          for (var j = 0; j < rowPixelLength; j += 4) {
+            var matrix3x3 = get3x3Matrix(originData, irow + i, j, rowPixelLength, srch);
+            imageData[(irow + i) * rowPixelLength + j] = Convolution(matrix3x3[0], template);
+            imageData[(irow + i) * rowPixelLength + j + 1] = Convolution(matrix3x3[1], template);
+            imageData[(irow + i) * rowPixelLength + j + 2] = Convolution(matrix3x3[2], template);
+          }
+        }
+        setTimeout(function () {
+          irow += rows;
+          if (irow + N < srch) {
+            doProcess(irow + N, N);
+          } else if (irow < srch) {
+            doProcess(irow, srch - irow);
+          } else {
+            resolve(imageData);
+          }
+        }, 0);
+      }
+      doProcess(0, N);
+      // sync way
+      // for(let i = 0; i < srch; ++i) {
       //   for (let j = 0; j < rowPixelLength; j += 4) {
       //     let matrix3x3 = get3x3Matrix(originData, i, j, rowPixelLength, srch);
       //     imageData[i * rowPixelLength + j] = Convolution(matrix3x3[0], template);
       //     imageData[i * rowPixelLength + j + 1] = Convolution(matrix3x3[1], template);
       //     imageData[i * rowPixelLength + j + 2] = Convolution(matrix3x3[2], template);
       //   }
-      //   setTimeout(() => {
-      //     i += 1;
-      //     if (i < srch) {
-      //       doProcess(i);
-      //     } else {
-      //       resolve(imageData);
-      //     }
-      //   }, 0);
       // }
-      // doProcess(0);
-      for (var i = 0; i < srch; ++i) {
-        for (var j = 0; j < rowPixelLength; j += 4) {
-          var matrix3x3 = get3x3Matrix(originData, i, j, rowPixelLength, srch);
-          imageData[i * rowPixelLength + j] = Convolution(matrix3x3[0], template);
-          imageData[i * rowPixelLength + j + 1] = Convolution(matrix3x3[1], template);
-          imageData[i * rowPixelLength + j + 2] = Convolution(matrix3x3[2], template);
-        }
-      }
-      resolve(imageData);
+      // resolve(imageData);
     });
   }
 
   /**
-   * 锐化滤波器
+   * Sharpen Filter
    */
   function SharpenFilter(imageData, srcw, srch, templateX, templateY) {
     var originData = imageData.slice(0);
     var rowPixelLength = srcw * 4;
+    var N = 100;
     return new Promise(function (resolve, reject) {
-      for (var i = 0; i < srch; ++i) {
-        for (var j = 0; j < rowPixelLength; j += 4) {
-          var matrix3x3 = get3x3Matrix(originData, i, j, rowPixelLength, srch);
-          var dataR = matrix3x3[0],
-              dataG = matrix3x3[1],
-              dataB = matrix3x3[2];
-          var RTempX = Convolution(dataR, templateX);
-          var RTempY = Convolution(dataR, templateY);
-          imageData[i * rowPixelLength + j] = Math.sqrt(Math.pow(RTempX, 2) + Math.pow(RTempY, 2));
-          var GTempX = Convolution(dataG, templateX);
-          var GTempY = Convolution(dataG, templateY);
-          imageData[i * rowPixelLength + j + 1] = Math.sqrt(Math.pow(GTempX, 2) + Math.pow(GTempY, 2));
-          var BTempX = Convolution(dataB, templateX);
-          var BTempY = Convolution(dataB, templateY);
-          imageData[i * rowPixelLength + j + 2] = Math.sqrt(Math.pow(BTempX, 2) + Math.pow(BTempY, 2));
+      // async way
+      function doProcess(irow, rows) {
+        for (var i = 0; i < rows; ++i) {
+          for (var j = 0; j < rowPixelLength; j += 4) {
+            var matrix3x3 = get3x3Matrix(originData, irow + i, j, rowPixelLength, srch);
+            var dataR = matrix3x3[0],
+                dataG = matrix3x3[1],
+                dataB = matrix3x3[2];
+            var RTempX = Convolution(dataR, templateX);
+            var RTempY = Convolution(dataR, templateY);
+            imageData[(irow + i) * rowPixelLength + j] = Math.sqrt(Math.pow(RTempX, 2) + Math.pow(RTempY, 2));
+            var GTempX = Convolution(dataG, templateX);
+            var GTempY = Convolution(dataG, templateY);
+            imageData[(irow + i) * rowPixelLength + j + 1] = Math.sqrt(Math.pow(GTempX, 2) + Math.pow(GTempY, 2));
+            var BTempX = Convolution(dataB, templateX);
+            var BTempY = Convolution(dataB, templateY);
+            imageData[(irow + i) * rowPixelLength + j + 2] = Math.sqrt(Math.pow(BTempX, 2) + Math.pow(BTempY, 2));
+          }
         }
+        setTimeout(function () {
+          irow += rows;
+          if (irow + N < srch) {
+            doProcess(irow + N, N);
+          } else if (irow < srch) {
+            doProcess(irow, srch - irow);
+          } else {
+            resolve(imageData);
+          }
+        }, 0);
       }
-      resolve(imageData);
+      doProcess(0, N);
+      // sync way
+      // for(let i = 0; i < srch; ++i) {
+      //   for (let j = 0; j < rowPixelLength; j += 4) {
+      //     let matrix3x3 = get3x3Matrix(originData, i, j, rowPixelLength, srch);
+      //     let dataR = matrix3x3[0], dataG = matrix3x3[1], dataB = matrix3x3[2];
+      //     var RTempX = Convolution(dataR, templateX);
+      //     var RTempY = Convolution(dataR, templateY);
+      //     imageData[i * rowPixelLength + j] = Math.sqrt(Math.pow(RTempX, 2) + Math.pow(RTempY, 2));
+      //     var GTempX = Convolution(dataG, templateX);
+      //     var GTempY = Convolution(dataG, templateY);
+      //     imageData[i * rowPixelLength + j + 1] = Math.sqrt(Math.pow(GTempX, 2) + Math.pow(GTempY, 2));
+      //     var BTempX = Convolution(dataB, templateX);
+      //     var BTempY = Convolution(dataB, templateY);
+      //     imageData[i * rowPixelLength + j + 2] = Math.sqrt(Math.pow(BTempX, 2) + Math.pow(BTempY, 2));
+      //   }
+      // }
+      // resolve(imageData);
     });
   }
 

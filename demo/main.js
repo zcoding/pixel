@@ -61,6 +61,7 @@ selectDOM('#reset')[0].addEventListener('click', function() {
 //平滑1
 selectDOM('#pinghua1')[0].addEventListener('click', function() {
   canvas.smooth(Pixel.TemplateSmooth1, 8).then(function() {
+    console.log('Smooth-Filter 1');
     canvas.repaint();
   });
 }, false);
@@ -68,18 +69,21 @@ selectDOM('#pinghua1')[0].addEventListener('click', function() {
 //平滑2
 selectDOM('#pinghua2')[0].addEventListener('click', function() {
   canvas.smooth(Pixel.TemplateSmooth2, 16).then(function() {
+    console.log('Smooth-Filter 2');
     canvas.repaint();
   });
 }, false);
 
 selectDOM('#crosswindow')[0].addEventListener('click', function() {
   canvas.crosswindow().then(function() {
+    console.log('Cross-Window done');
     canvas.repaint();
   });
 }, false);
 
 selectDOM('#square-window')[0].addEventListener('click', function() {
   canvas.squareWindow().then(function() {
+    console.log('Square-Window done');
     canvas.repaint();
   });
 }, false);
@@ -93,12 +97,14 @@ selectDOM('#laplacian1')[0].addEventListener('click', function() {
 
 selectDOM('#sobel')[0].addEventListener('click', function() {
   canvas.sharpenFilter(Pixel.SobelX, Pixel.SobelY).then(function() {
+    console.log('Sobel-Filter done');
     canvas.repaint();
   });
 }, false);
 
 selectDOM('#prewitty')[0].addEventListener('click', function() {
   canvas.sharpenFilter(Pixel.PrewittX, Pixel.PrewittY).then(function() {
+    console.log('Prewitty-Filter done');
     canvas.repaint();
   });
 }, false);
