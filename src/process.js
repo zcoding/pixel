@@ -87,7 +87,7 @@ export function Linear(imageData, x, y) {
  * r' = r
  * g' = g
  * b' = b
- * a' = a * 255
+ * a' = opacity * 255
  * @param {TypedArray} imageData
  * @param {Number} opacity: 0 ~ 1
  * @return Promise

@@ -1,7 +1,8 @@
 # Pixel
-Digital Image Processing in Javascript and CSS.
+[Digital Image Processing in Javascript and CSS.]((http://zcoding.github.io/pixel/))
 
-[Demo](http://zcoding.github.io/pixel/)
+[![Versoin](https://img.shields.io/npm/v/pixel-js.svg?style=flat-square "Version")](https://www.npmjs.com/package/pixel-js)
+[![License](https://img.shields.io/npm/l/pixel-js.svg?style=flat-square "License")](./LICENSE)
 
 [中文文档](./README.CN.md)
 
@@ -123,11 +124,101 @@ Return:
 
 + `Promise`
 
-#### `Pixel.Canvas.opacity()`
-#### `Pixel.Canvas.binarization()`
+#### `Pixel.Canvas.opacity(opacity)`
+
+Rules:
+
++ `r' = r`
++ `g' = g`
++ `b' = b`
++ `a' = 255 * opacity`
+
+Arguments:
+
++ opacity `Number`
+
+Return:
+
++ `Promise`
+
+#### `Pixel.Canvas.binarization(threshold)`
+
+Rules:
+
++ `c' = c < threshold ? 0 : 255`
++ `a' = a`
+
+Arguments:
+
++ threshold `Number`
+
+Return:
+
++ `Promise`
+
 #### `Pixel.Canvas.gray()`
-#### `Pixel.Canvas.smooth()`
+
+Rules:
+
++ `r' = g' = b' = 0.299 * r + 0.587 * g + 0.114 * b`
++ `a' = a`
+
+Arguments:
+
++ none
+
+Return:
+
++ `Promise`
+
+#### `Pixel.Canvas.smooth(template, times)`
+
+Arguments:
+
++ template `Array`
++ times `Number`
+
+Return:
+
++ `Promise`
+
 #### `Pixel.Canvas.crosswindow()`
+
+Arguments:
+
++ none
+
+Return:
+
++ `Promise`
+
 #### `Pixel.Canvas.squareWindow()`
-#### `Pixel.Canvas.highPassFilter()`
-#### `Pixel.Canvas.sharpenFilter()`
+
+Arguments:
+
++ none
+
+Return:
+
++ `Promise`
+
+#### `Pixel.Canvas.highPassFilter(template)`
+
+Arguments:
+
++ template `Array`
+
+Return:
+
++ `Promise`
+
+#### `Pixel.Canvas.sharpenFilter(templateX, templateY)`
+
+Arguments:
+
++ templateX `Array`
++ templateY `Array`
+
+Return:
+
++ `Promise`

@@ -1,7 +1,8 @@
 # Pixel
-Digital Image Processing in Javascript and CSS.
+[基于Javascript和CSS的数字图像处理]((http://zcoding.github.io/pixel/))
 
-[Demo](http://zcoding.github.io/pixel/)
+[![版本](https://img.shields.io/npm/v/pixel-js.svg?style=flat-square "版本")](https://www.npmjs.com/package/pixel-js)
+[![协议](https://img.shields.io/npm/l/pixel-js.svg?style=flat-square "协议")](./LICENSE)
 
 ## 安装
 
@@ -26,6 +27,11 @@ npm install pixel-js --save
 + `dist/es6/pixel.js` 支持ES6规范的打包文件
 + `dist/amd/pixel.js` 支持AMD规范的打包文件
 
+## 特性
+
++ 使用异步处理，不阻塞页面
++ 基于`Promise`的异步回调
+
 ## 示例
 
 ```javascript
@@ -42,6 +48,7 @@ Pixel.loadImage("images/lena.jpg").then(function(image) {
   console.log(err.message);
 });
 ```
+
 ## API
 
 ### `Pixel.loadImage`
@@ -129,11 +136,101 @@ Pixel.loadImage("imageSrc").then((image) => {
 
 + `Promise`
 
-#### `Pixel.Canvas.opacity()`
-#### `Pixel.Canvas.binarization()`
+#### `Pixel.Canvas.opacity(opacity)`
+
+转换公式：
+
++ `r' = r`
++ `g' = g`
++ `b' = b`
++ `a' = 255 * opacity`
+
+参数：
+
++ opacity `Number`
+
+返回：
+
++ `Promise`
+
+#### `Pixel.Canvas.binarization(threshold)`
+
+转换公式：
+
++ `c' = c < threshold ? 0 : 255`
++ `a' = a`
+
+参数：
+
++ threshold `Number`
+
+返回：
+
++ `Promise`
+
 #### `Pixel.Canvas.gray()`
-#### `Pixel.Canvas.smooth()`
+
+转换公式：
+
++ `r' = g' = b' = 0.299 * r + 0.587 * g + 0.114 * b`
++ `a' = a`
+
+参数：
+
++ 无
+
+返回：
+
++ `Promise`
+
+#### `Pixel.Canvas.smooth(template, times)`
+
+参数：
+
++ template `Array`
++ times `Number`
+
+返回：
+
++ `Promise`
+
 #### `Pixel.Canvas.crosswindow()`
+
+参数：
+
++ 无
+
+返回：
+
++ `Promise`
+
 #### `Pixel.Canvas.squareWindow()`
-#### `Pixel.Canvas.highPassFilter()`
-#### `Pixel.Canvas.sharpenFilter()`
+
+参数：
+
++ 无
+
+返回：
+
++ `Promise`
+
+#### `Pixel.Canvas.highPassFilter(template)`
+
+参数：
+
++ template `Array`
+
+返回：
+
++ `Promise`
+
+#### `Pixel.Canvas.sharpenFilter(templateX, templateY)`
+
+参数：
+
++ templateX `Array`
++ templateY `Array`
+
+返回：
+
++ `Promise`
