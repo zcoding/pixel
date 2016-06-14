@@ -15,8 +15,7 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-        './test/*.js',
-        './src/*.js'
+        'test/test-pixel.js'
     ],
 
 
@@ -28,22 +27,36 @@ module.exports = function(config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
-        './src/**/*.js': ['coverage']
+        './test/test-pixel.js': ['rollup']
     },
+
+    rollupPreprocessor: {
+      rollup: {
+        plugins: [
+          require('rollup-plugin-babel')({
+            presets: [
+              require('babel-preset-es2015-rollup')
+            ]
+          })
+        ]
+      },
+      bundle: {
+        sourceMap: 'inline'
+      }
+    },
+
+
+    plugins: [
+        'karma-jasmine',
+        'karma-rollup-preprocessor',
+        'karma-chrome-launcher'
+    ],
 
 
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['progress', 'coverage'],
-
-
-    coverageReporter: {
-      dir: './test-report',
-      reporters: [
-        { type: 'html', subdir: 'report-html' }
-      ]
-    },
+    reporters: ['progress'],
 
 
     // web server port
