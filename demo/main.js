@@ -14,6 +14,7 @@ Pixel.loadImage("image/lena.jpg").then((image) => {
 // 求补
 selectDOM('#complement')[0].addEventListener('click', function() {
   canvas.complement().then(function() {
+    console.log('Complement done');
     canvas.repaint();
   });
 }, false);
@@ -21,6 +22,7 @@ selectDOM('#complement')[0].addEventListener('click', function() {
 // 亮度加
 selectDOM('#light')[0].addEventListener('click', function() {
   canvas.linear(1, 10).then(function() {
+    console.log('Light done');
     canvas.repaint();
   });
 }, false);
@@ -28,6 +30,7 @@ selectDOM('#light')[0].addEventListener('click', function() {
 // 亮度减
 selectDOM('#dark')[0].addEventListener('click', function() {
   canvas.linear(1, -10).then(function() {
+    console.log('Dark done');
     canvas.repaint();
   });
 }, false);
@@ -35,6 +38,7 @@ selectDOM('#dark')[0].addEventListener('click', function() {
 // 透明度
 selectDOM('#opacity')[0].addEventListener('click', function() {
   canvas.opacity(0.8).then(function() {
+    console.log('Opacity done');
     canvas.repaint();
   });
 }, false);
@@ -42,6 +46,7 @@ selectDOM('#opacity')[0].addEventListener('click', function() {
 // 二值化
 selectDOM('#binary')[0].addEventListener('click', function() {
   canvas.binarization(128).then(function() {
+    console.log('Binarization done');
     canvas.repaint();
   });
 }, false);
@@ -49,6 +54,7 @@ selectDOM('#binary')[0].addEventListener('click', function() {
 // 灰度图
 selectDOM('#gray')[0].addEventListener('click', function() {
   canvas.gray().then(function() {
+    console.log('Gray done');
     canvas.repaint();
   });
 }, false);
