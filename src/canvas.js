@@ -62,6 +62,7 @@ export default class Canvas {
   }
 
   binarization(threshold) {
+    threshold = threshold || 128;
     return Binarization(this.imageData.data, threshold);
   }
 
