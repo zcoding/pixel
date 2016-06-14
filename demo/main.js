@@ -86,6 +86,7 @@ selectDOM('#square-window')[0].addEventListener('click', function() {
 
 selectDOM('#laplacian1')[0].addEventListener('click', function() {
   canvas.highPassFilter(Pixel.Laplacian1).then(function() {
+    console.log('High-Pass-Filter done');
     canvas.repaint();
   });
 }, false);

@@ -287,25 +287,42 @@ var Pixel = (function () {
   }
 
   /**
-   * 高通滤波器
+   * High-Pass Filter
    * @param {Array} imageData
-   * @param template 模板
+   * @param {Number} srcw
+   * @param {Number} srch
+   * @param {Array} template
    */
   function HighPassFilter(imageData, srcw, srch, template) {
     var originData = imageData.slice(0);
     var rowPixelLength = srcw * 4;
     return new Promise(function (resolve, reject) {
-      setTimeout(function () {
-        for (var i = 0; i < srch; ++i) {
-          for (var j = 0; j < rowPixelLength; j += 4) {
-            var matrix3x3 = get3x3Matrix(originData, i, j, rowPixelLength, srch);
-            imageData[i * rowPixelLength + j] = Convolution(matrix3x3[0], template);
-            imageData[i * rowPixelLength + j + 1] = Convolution(matrix3x3[1], template);
-            imageData[i * rowPixelLength + j + 2] = Convolution(matrix3x3[2], template);
-          }
+      // function doProcess(i) {
+      //   for (let j = 0; j < rowPixelLength; j += 4) {
+      //     let matrix3x3 = get3x3Matrix(originData, i, j, rowPixelLength, srch);
+      //     imageData[i * rowPixelLength + j] = Convolution(matrix3x3[0], template);
+      //     imageData[i * rowPixelLength + j + 1] = Convolution(matrix3x3[1], template);
+      //     imageData[i * rowPixelLength + j + 2] = Convolution(matrix3x3[2], template);
+      //   }
+      //   setTimeout(() => {
+      //     i += 1;
+      //     if (i < srch) {
+      //       doProcess(i);
+      //     } else {
+      //       resolve(imageData);
+      //     }
+      //   }, 0);
+      // }
+      // doProcess(0);
+      for (var i = 0; i < srch; ++i) {
+        for (var j = 0; j < rowPixelLength; j += 4) {
+          var matrix3x3 = get3x3Matrix(originData, i, j, rowPixelLength, srch);
+          imageData[i * rowPixelLength + j] = Convolution(matrix3x3[0], template);
+          imageData[i * rowPixelLength + j + 1] = Convolution(matrix3x3[1], template);
+          imageData[i * rowPixelLength + j + 2] = Convolution(matrix3x3[2], template);
         }
-        resolve(imageData);
-      }, 0);
+      }
+      resolve(imageData);
     });
   }
 
@@ -316,26 +333,24 @@ var Pixel = (function () {
     var originData = imageData.slice(0);
     var rowPixelLength = srcw * 4;
     return new Promise(function (resolve, reject) {
-      setTimeout(function () {
-        for (var i = 0; i < srch; ++i) {
-          for (var j = 0; j < rowPixelLength; j += 4) {
-            var matrix3x3 = get3x3Matrix(originData, i, j, rowPixelLength, srch);
-            var dataR = matrix3x3[0],
-                dataG = matrix3x3[1],
-                dataB = matrix3x3[2];
-            var RTempX = Convolution(dataR, templateX);
-            var RTempY = Convolution(dataR, templateY);
-            imageData[i * rowPixelLength + j] = Math.sqrt(Math.pow(RTempX, 2) + Math.pow(RTempY, 2));
-            var GTempX = Convolution(dataG, templateX);
-            var GTempY = Convolution(dataG, templateY);
-            imageData[i * rowPixelLength + j + 1] = Math.sqrt(Math.pow(GTempX, 2) + Math.pow(GTempY, 2));
-            var BTempX = Convolution(dataB, templateX);
-            var BTempY = Convolution(dataB, templateY);
-            imageData[i * rowPixelLength + j + 2] = Math.sqrt(Math.pow(BTempX, 2) + Math.pow(BTempY, 2));
-          }
+      for (var i = 0; i < srch; ++i) {
+        for (var j = 0; j < rowPixelLength; j += 4) {
+          var matrix3x3 = get3x3Matrix(originData, i, j, rowPixelLength, srch);
+          var dataR = matrix3x3[0],
+              dataG = matrix3x3[1],
+              dataB = matrix3x3[2];
+          var RTempX = Convolution(dataR, templateX);
+          var RTempY = Convolution(dataR, templateY);
+          imageData[i * rowPixelLength + j] = Math.sqrt(Math.pow(RTempX, 2) + Math.pow(RTempY, 2));
+          var GTempX = Convolution(dataG, templateX);
+          var GTempY = Convolution(dataG, templateY);
+          imageData[i * rowPixelLength + j + 1] = Math.sqrt(Math.pow(GTempX, 2) + Math.pow(GTempY, 2));
+          var BTempX = Convolution(dataB, templateX);
+          var BTempY = Convolution(dataB, templateY);
+          imageData[i * rowPixelLength + j + 2] = Math.sqrt(Math.pow(BTempX, 2) + Math.pow(BTempY, 2));
         }
-        resolve(imageData);
-      }, 0);
+      }
+      resolve(imageData);
     });
   }
 
