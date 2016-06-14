@@ -104,7 +104,7 @@ export function SmoothFilter(imageData, srcw, srch, template, times) {
       setTimeout(() => {
         irow += rows;
         if (irow + N < srch) {
-          doProcess(irow + N, N);
+          doProcess(irow, N);
         } else if (irow < srch) {
           doProcess(irow, srch - irow);
         } else {
@@ -154,7 +154,7 @@ export function CrossWindow(imageData, srcw, srch) {
       setTimeout(() => {
         irow += rows;
         if (irow + N < srch) {
-          doProcess(irow + N, N);
+          doProcess(irow, N);
         } else if (irow < srch) {
           doProcess(irow, srch - irow);
         } else {
@@ -208,7 +208,7 @@ export function SquareWindow(imageData, srcw, srch) {
       setTimeout(() => {
         irow += rows;
         if (irow + N < srch) {
-          doProcess(irow + N, N);
+          doProcess(irow, N);
         } else if (irow < srch) {
           doProcess(irow, srch - irow);
         } else {
@@ -259,7 +259,7 @@ export function HighPassFilter(imageData, srcw, srch, template) {
       setTimeout(() => {
         irow += rows;
         if (irow + N < srch) {
-          doProcess(irow + N, N);
+          doProcess(irow, N);
         } else if (irow < srch) {
           doProcess(irow, srch - irow);
         } else {
@@ -309,7 +309,7 @@ export function SharpenFilter(imageData, srcw, srch, templateX, templateY) {
       setTimeout(() => {
         irow += rows;
         if (irow + N < srch) {
-          doProcess(irow + N, N);
+          doProcess(irow, N);
         } else if (irow < srch) {
           doProcess(irow, srch - irow);
         } else {

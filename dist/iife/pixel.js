@@ -226,7 +226,7 @@ var Pixel = (function () {
         setTimeout(function () {
           irow += rows;
           if (irow + N < srch) {
-            doProcess(irow + N, N);
+            doProcess(irow, N);
           } else if (irow < srch) {
             doProcess(irow, srch - irow);
           } else {
@@ -278,7 +278,7 @@ var Pixel = (function () {
         setTimeout(function () {
           irow += rows;
           if (irow + N < srch) {
-            doProcess(irow + N, N);
+            doProcess(irow, N);
           } else if (irow < srch) {
             doProcess(irow, srch - irow);
           } else {
@@ -334,7 +334,7 @@ var Pixel = (function () {
         setTimeout(function () {
           irow += rows;
           if (irow + N < srch) {
-            doProcess(irow + N, N);
+            doProcess(irow, N);
           } else if (irow < srch) {
             doProcess(irow, srch - irow);
           } else {
@@ -385,7 +385,7 @@ var Pixel = (function () {
         setTimeout(function () {
           irow += rows;
           if (irow + N < srch) {
-            doProcess(irow + N, N);
+            doProcess(irow, N);
           } else if (irow < srch) {
             doProcess(irow, srch - irow);
           } else {
@@ -437,7 +437,7 @@ var Pixel = (function () {
         setTimeout(function () {
           irow += rows;
           if (irow + N < srch) {
-            doProcess(irow + N, N);
+            doProcess(irow, N);
           } else if (irow < srch) {
             doProcess(irow, srch - irow);
           } else {

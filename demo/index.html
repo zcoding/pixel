@@ -3,37 +3,29 @@
   <head>
     <meta charset="utf-8">
     <title>My canvas</title>
-    <style>
-    .image-canvas {
-      margin: 0 auto;
-      border:1px solid #c3c3c3;
-      overflow: hidden;
-      width: 100px;
-      height: 100px;
-    }
-    .image-canvas canvas {
-    }
-    </style>
+    <link rel="stylesheet" href="demo.css">
   </head>
   <body>
-    <div class="image-canvas">
-      <canvas id="my-canvas"></canvas>
-    </div>
-    <div>
-      <button id="complement">求补</button>
-      <button id="light">亮度加</button>
-      <button id="dark">亮度减</button>
-      <button id="binary">二值化</button>
-      <button id="gray">灰度图</button>
-      <button id="reset">重置</button>
-      <button id="pinghua1">平滑1</button>
-      <button id="pinghua2">平滑2</button>
-      <button id="crosswindow">十字窗口</button>
-      <button id="square-window">方形窗口</button>
-      <button id="laplacian1">拉普拉斯锐化</button>
-      <button id="sobel">Sobel算子锐化</button>
-      <button id="prewitty">Prewitt算子锐化</button>
-      <button id="opacity">透明</button>
+    <div class="container-main">
+      <div class="container-imagebox">
+        <canvas id="my-canvas"></canvas>
+      </div>
+      <div class="container-toolbox">
+        <button class="btn" type="button" id="reset">重置</button>
+        <button class="btn" type="button" id="complement">求补</button>
+        <button class="btn" type="button" id="light">亮度加</button>
+        <button class="btn" type="button" id="dark">亮度减</button>
+        <button class="btn" type="button" id="binary">二值化</button>
+        <button class="btn" type="button" id="gray">灰度图</button>
+        <button class="btn" type="button" id="pinghua1">平滑1</button>
+        <button class="btn" type="button" id="pinghua2">平滑2</button>
+        <button class="btn" type="button" id="crosswindow">十字窗口</button>
+        <button class="btn" type="button" id="square-window">方形窗口</button>
+        <button class="btn" type="button" id="laplacian1">拉普拉斯锐化</button>
+        <button class="btn" type="button" id="sobel">Sobel算子锐化</button>
+        <button class="btn" type="button" id="prewitty">Prewitt算子锐化</button>
+        <button class="btn" type="button" id="opacity">透明</button>
+      </div>
     </div>
     <script src="pixel.js"></script>
     <script src="main.js"></script>

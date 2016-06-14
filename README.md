@@ -3,9 +3,20 @@ Digital Image Processing in Javascript and CSS.
 
 [Demo](http://zcoding.github.io/pixel/)
 
-# Installation
-## ~~NPM~~
+## Installation
+
+### ~~NPM~~
 ~~`npm install pixel-js`~~
+
+## Demo
+
+[github-pages](http://zcoding.github.io/pixel/)
+
+or
+
+```bash
+npm install && npm start
+```
 
 ## API
 
@@ -44,29 +55,6 @@ Return:
 
 + `this`
 
-#### `Pixel.Canvas.prototype.draw(shape, location)`
-
-Arguments:
-
-+ shape `Shape`
-+ location `Location`
-
-Return:
-
-+ `this`
-
-#### `Pixel.Canvas.prototype.drawImage(image, offsetX, offsetY)`
-
-Arguments:
-
-+ image `Image`
-+ offsetX `Number`
-+ offsetY `Number`
-
-Return:
-
-+ `this`
-
 #### `Pixel.Canvas.prototype.clear()`
 
 Arguments:
@@ -77,7 +65,7 @@ Return:
 
 + `this`
 
-#### `Pixel.Canvas.prototype.data()`
+#### `Pixel.Canvas.prototype.reset()`
 
 Arguments:
 
@@ -85,4 +73,41 @@ Arguments:
 
 Return:
 
-+ `Array`
++ `this`
+
+#### `Pixel.Canvas.complement()`
+
+Arguments:
+
++ none
+
+Return:
+
++ `Promise`
+
+#### `Pixel.Canvas.linear(x, y)`
+
+Rules:
+
++ `r' = x * r + y`
++ `g' = x * g + y`
++ `b' = x * b + y`
++ `a' = a`
+
+Arguments:
+
++ x `Number`
++ y `Number`
+
+Return:
+
++ `Promise`
+
+#### `Pixel.Canvas.opacity()`
+#### `Pixel.Canvas.binarization()`
+#### `Pixel.Canvas.gray()`
+#### `Pixel.Canvas.smooth()`
+#### `Pixel.Canvas.crosswindow()`
+#### `Pixel.Canvas.squareWindow()`
+#### `Pixel.Canvas.highPassFilter()`
+#### `Pixel.Canvas.sharpenFilter()`
