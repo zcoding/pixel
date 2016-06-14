@@ -3,9 +3,7 @@ Digital Image Processing in Javascript and CSS.
 
 [Demo](http://zcoding.github.io/pixel/)
 
-[中文文档](./README.CN.md)
-
-## Installation
+## 安装
 
 ### NPM
 
@@ -13,31 +11,37 @@ Digital Image Processing in Javascript and CSS.
 npm install pixel-js --save
 ```
 
-### Standalone
+### 独立打包文件
 
-Use the standalone version in the `dist/iife/pixel.js` folder.
+`dist/iife/pixel.js`是一个独立打包文件，可以直接在浏览器环境使用。
 
-Use `<script>` tag to load the file:
+通过`<script>`标签载入：
 
 ```html
 <script src="path/to/pixel.js"></script>
 ```
 
-### ES6 and AMD support
+### 支持ES6/AMD规范
 
-+ `dist/es6/pixel.js`
-+ `dist/amd/pixel.js`
++ `dist/es6/pixel.js` 支持ES6规范的打包文件
++ `dist/amd/pixel.js` 支持AMD规范的打包文件
 
-## Demo
+## 示例
 
-[github-pages](http://zcoding.github.io/pixel/)
+```javascript
+var Pixel = require('pixel-js');
 
-or
-
-```bash
-npm install && npm start
+Pixel.loadImage("images/lena.jpg").then(function(image) {
+  var canvas = new Pixel.Canvas('#my-canvas', image, image.width, image.height);
+  canvas.gray().then(function() {
+    return canvas.binarization(128);
+  }).then(function() {
+    canvas.repaint();
+  });
+}, function(err) {
+  console.log(err.message);
+});
 ```
-
 ## API
 
 ### `Pixel.loadImage`
@@ -52,74 +56,76 @@ Pixel.loadImage("imageSrc").then((image) => {
 
 ### `Pixel.Canvas(selector, image, width, height)`
 
-Arguments:
+参数:
 
 + selector `String`|`Element`
 + image `Image`
 + width `Number`
 + height `Number`
 
-Return:
+返回:
 
 + `Canvas`
 
 #### `Pixel.Canvas.prototype.repaint()`
 
-Trigger repaint.
+触发重绘。
 
-Arguments:
+参数：
 
 + none
 
-Return:
+返回：
 
 + `this`
 
 #### `Pixel.Canvas.prototype.clear()`
 
-Arguments:
+清除内容。
 
-+ none
+参数：
 
-Return:
++ 无
+
+返回：
 
 + `this`
 
 #### `Pixel.Canvas.prototype.reset()`
 
-Arguments:
+参数：
 
-+ none
++ 无
 
-Return:
+返回：
 
 + `this`
 
 #### `Pixel.Canvas.complement()`
 
-Arguments:
+参数：
 
-+ none
++ 无
 
-Return:
+返回：
 
 + `Promise`
 
 #### `Pixel.Canvas.linear(x, y)`
 
-Rules:
+转换公式：
 
 + `r' = x * r + y`
 + `g' = x * g + y`
 + `b' = x * b + y`
 + `a' = a`
 
-Arguments:
+参数：
 
 + x `Number`
 + y `Number`
 
-Return:
+返回：
 
 + `Promise`
 
