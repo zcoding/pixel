@@ -34,6 +34,7 @@
     "koa-route": "^2.4.2",
     "koa-static": "^2.0.0",
     "open": "0.0.5",
+    "portfinder": "^1.0.3",
     "rollup": "^0.31.1",
     "rollup-plugin-babel": "^2.4.0",
     "rollup-watch": "^2.4.0"
