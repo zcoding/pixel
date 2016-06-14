@@ -2,11 +2,17 @@
   "name": "pixel",
   "version": "0.0.1",
   "description": "digital image processing",
-  "main": "pixel.js",
+  "main": "dist/cjs/pixel.js",
+  "jsnext:main": "dist/es6/pixel.js",
   "scripts": {
-    "dev": "rollup -c build/rollup.config.js -w",
+    "dev": "rollup -c build/rollup.iife.js -w",
     "test": "karma start karma-conf.js",
-    "start": "node scripts/server.js"
+    "start": "node scripts/server.js",
+    "build": "rollup --config build/rollup.iife.js;rollup --config build/rollup.es6.js;rollup --config build/rollup.amd.js;rollup --config build/rollup.cjs.js",
+    "rollup-iife": "rollup --config build/rollup.iife.js",
+    "rollup-es6": "rollup --config build/rollup.es6.js",
+    "rollup-amd": "rollup --config build/rollup.amd.js",
+    "rollup-cjs": "rollup --config build/rollup.cjs.js"
   },
   "repository": {
     "type": "git",
