@@ -17,9 +17,9 @@ body {
 }
 
 .container-imagebox {
-  width: 600px;
-/*   width: 100px;
-  height: 100px; */
+  /* width: 600px; */
+  width: 100px;
+  height: 100px;
   overflow: hidden;
   padding: 15px;
 }

@@ -80,6 +80,42 @@ function getCrossWindowMatrix(originData, i, j, w, h) {
   return [dataR, dataG, dataB];
 }
 
+function getAsyncProcessingPromise(processing, w, h, N) {
+  N = N || 100;
+  return function asyncProcessing(imageData) {
+    return new Promise((resolve, reject) => {
+      function doProcess(irow, rows) {
+        for (let i = 0; i < rows; ++i) {
+          for (let j = 0; j < w; j += 4) {
+            processing(imageData, irow + i, j, w, h);
+          }
+        }
+        setTimeout(() => {
+          irow += rows;
+          if (irow + N < h) {
+            doProcess(irow, N);
+          } else if (irow < h) {
+            doProcess(irow, h - irow);
+          } else {
+            resolve(imageData);
+          }
+        }, 0);
+      }
+      doProcess(0, N);
+    });
+  };
+}
+
+export function SmoothFilter2(imageData, srcw, srch, template, times) {
+  var originData = imageData.slice(0);
+  return getAsyncProcessingPromise(function asyncProcessingSmoothFilter(imageData, i, j, w, h) {
+    let matrix3x3 = get3x3Matrix(originData, i, j, w, h);
+    imageData[i * w + j] = Convolution(matrix3x3[0], template) / times;
+    imageData[i * w + j + 1] = Convolution(matrix3x3[1], template) / times;
+    imageData[i * w + j + 2] = Convolution(matrix3x3[2], template) / times;
+  }, srcw * 4, srch)();
+};
+
 /**
  * Smooth Filter
  * @param {TypedArray} imageData
