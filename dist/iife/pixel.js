@@ -236,16 +236,6 @@ var Pixel = (function () {
         }, 0);
       }
       doProcess(0, N);
-      // sync way
-      // for(let i = 0; i < srch; ++i) {
-      //   for (let j = 0; j < rowPixelLength; j += 4) {
-      //     let matrix3x3 = get3x3Matrix(originData, i, j, rowPixelLength, srch);
-      //     imageData[i * rowPixelLength + j] = Convolution(matrix3x3[0], template) / times;
-      //     imageData[i * rowPixelLength + j + 1] = Convolution(matrix3x3[1], template) / times;
-      //     imageData[i * rowPixelLength + j + 2] = Convolution(matrix3x3[2], template) / times;
-      //   }
-      // }
-      // resolve(imageData);
     });
   }
 
@@ -288,20 +278,6 @@ var Pixel = (function () {
         }, 0);
       }
       doProcess(0, N);
-      // sync way
-      // for(let i = 0; i < srch; ++i) {
-      //   for (let j = 0; j < rowPixelLength; j += 4) {
-      // let matrix3x3 = getCrossWindowMatrix(originData, i, j, rowPixelLength, srch);
-      // let dataR = matrix3x3[0], dataG = matrix3x3[1], dataB = matrix3x3[2];
-      // dataR.sort(AscendingOrder);
-      // dataG.sort(AscendingOrder);
-      // dataB.sort(AscendingOrder);
-      // imageData[i * rowPixelLength + j] = dataR[4];
-      // imageData[i * rowPixelLength + j + 1] = dataG[4];
-      // imageData[i * rowPixelLength + j + 2] = dataB[4];
-      //   }
-      // }
-      // resolve(imageData);
     });
   }
 
@@ -344,20 +320,6 @@ var Pixel = (function () {
         }, 0);
       }
       doProcess(0, N);
-      // sync way
-      // for(let i = 0; i < srch; ++i) {
-      //   for (let j = 0; j < rowPixelLength; j += 4) {
-      //     let matrix3x3 = get3x3Matrix(originData, i, j, rowPixelLength, srch);
-      //     let dataR = matrix3x3[0], dataG = matrix3x3[1], dataB = matrix3x3[2];
-      //     dataR.sort(AscendingOrder);
-      //     dataG.sort(AscendingOrder);
-      //     dataB.sort(AscendingOrder);
-      //     imageData[i * rowPixelLength + j] = dataR[4];
-      //     imageData[i * rowPixelLength + j + 1] = dataG[4];
-      //     imageData[i * rowPixelLength + j + 2] = dataB[4];
-      //   }
-      // }
-      // resolve(imageData);
     });
   }
 
@@ -395,16 +357,6 @@ var Pixel = (function () {
         }, 0);
       }
       doProcess(0, N);
-      // sync way
-      // for(let i = 0; i < srch; ++i) {
-      //   for (let j = 0; j < rowPixelLength; j += 4) {
-      //     let matrix3x3 = get3x3Matrix(originData, i, j, rowPixelLength, srch);
-      //     imageData[i * rowPixelLength + j] = Convolution(matrix3x3[0], template);
-      //     imageData[i * rowPixelLength + j + 1] = Convolution(matrix3x3[1], template);
-      //     imageData[i * rowPixelLength + j + 2] = Convolution(matrix3x3[2], template);
-      //   }
-      // }
-      // resolve(imageData);
     });
   }
 
@@ -447,23 +399,6 @@ var Pixel = (function () {
         }, 0);
       }
       doProcess(0, N);
-      // sync way
-      // for(let i = 0; i < srch; ++i) {
-      //   for (let j = 0; j < rowPixelLength; j += 4) {
-      //     let matrix3x3 = get3x3Matrix(originData, i, j, rowPixelLength, srch);
-      //     let dataR = matrix3x3[0], dataG = matrix3x3[1], dataB = matrix3x3[2];
-      //     var RTempX = Convolution(dataR, templateX);
-      //     var RTempY = Convolution(dataR, templateY);
-      //     imageData[i * rowPixelLength + j] = Math.sqrt(Math.pow(RTempX, 2) + Math.pow(RTempY, 2));
-      //     var GTempX = Convolution(dataG, templateX);
-      //     var GTempY = Convolution(dataG, templateY);
-      //     imageData[i * rowPixelLength + j + 1] = Math.sqrt(Math.pow(GTempX, 2) + Math.pow(GTempY, 2));
-      //     var BTempX = Convolution(dataB, templateX);
-      //     var BTempY = Convolution(dataB, templateY);
-      //     imageData[i * rowPixelLength + j + 2] = Math.sqrt(Math.pow(BTempX, 2) + Math.pow(BTempY, 2));
-      //   }
-      // }
-      // resolve(imageData);
     });
   }
 
